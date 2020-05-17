@@ -31,6 +31,7 @@ const TEST_DATA = {
   end: '05-17-2020 16:20',
   parkingSpotLat: '36.3094989',
   parkingSpotLong: '-97.3855117',
+
 };
 
 const reservationById = (id) => ({
@@ -74,18 +75,25 @@ const isReservationToday = (dateStr) => {
   return moment(dateStr).isSame(today, 'd');
 };
 
+const getDatesFromTime = (timeStr) => {
+  const now = moment();
+  const start = moment(`${now.format('YYYY-MM-DD')} ${timeStr}`);
+  let end = moment(`${now.format('YYYY-MM-DD')} ${timeStr}`).add(20, 'm');
+  return { start, end };
+};
+
 const Confirmation = () => {
   const { id } = useParams();
   const { destination, time } = useSelector((state) => state.spotSearch);
+  destination.international_phone_number = '+14129181875';
+  const { start, end } = getDatesFromTime(time);
 
-  const reservation = reservationById(id);
-
-  const isToday = isReservationToday(TEST_DATA.start);
-  const expired = moment().isAfter(moment(TEST_DATA.end));
+  const isToday = isReservationToday(start.toString());
+  const expired = moment().isAfter(end);
 
   return (
     <Container>
-      <ReservationStatus start={TEST_DATA.start} end={TEST_DATA.end} />
+      <ReservationStatus start={start} end={end} />
       <InfoContainer>
         <Header>
           You
@@ -94,13 +102,13 @@ const Confirmation = () => {
           {' '}
           a spot reserved from
           &nbsp;
-          {humanReadableTime(TEST_DATA.start)}
+          {humanReadableTime(start.toString())}
           &nbsp;
           to
           &nbsp;
-          {humanReadableTime(TEST_DATA.end)}
+          {humanReadableTime(end.toString())}
           &nbsp;
-          {isToday ? 'today' : `on ${humanReadableDate(TEST_DATA.start)}` }
+          {isToday ? 'today' : `on ${humanReadableDate(start.toString())}` }
         </Header>
         <Description>
           We'll text a confirmation and any updates to (123) 321 4564
