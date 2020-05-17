@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import {
   Map,
@@ -16,6 +16,7 @@ import Autocomplete from '../ReservationPortal/Autocomplete';
 import TimeSelect from '../ReservationPortal/TimeSelect';
 
 import { mapSources, zoom } from '../../../common/constants/map';
+import ReservableAreaCard from '../ReservableAreaCard/ReservableAreaCard';
 
 const StyledMap = styled(Map)`
   position: fixed;
@@ -84,33 +85,16 @@ export default () => {
             maxDurationMinutes,
             areaId,
           }) => (
-            <CarouselItem key={areaId}>
-              <Card elevation={5}>
-                <div>
-                  $
-                  {pricePerSession}
-                </div>
-                <div>Available from</div>
-                <div>
-                  {startTime}
-                  {' '}
-                  -
-                  {' '}
-                  {endTime}
-                </div>
-                <div>
-                  {maxDurationMinutes}
-                  {' '}
-                  min. max
-                </div>
-                <div>
-                  {spaces}
-                  {' '}
-                  spots free
-                </div>
-              </Card>
-            </CarouselItem>
-          ))}
+              <CarouselItem key={areaId}>
+                <ReservableAreaCard {...{
+                  pricePerSession,
+                  timesAvailable: { startTime, endTime },
+                  spaces,
+                  maxDurationMinutes,
+                  areaId,
+                }} />
+              </CarouselItem>
+            ))}
         </Carousel>
         <ButtonContainer>
           <Button
