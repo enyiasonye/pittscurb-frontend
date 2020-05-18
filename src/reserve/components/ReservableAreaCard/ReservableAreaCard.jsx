@@ -52,13 +52,10 @@ const BestSpot = styled(Chip)`
     z-index: 9999;
 `;
 
-// Use a ternary to make best spot show up based on props passed in
 export default (props) => {
-    console.log(props.bestSpot)
     return (
-
         <CustomCard elevation={5}>
-            {props.bestSpot ? <BestSpot size="medium" label="BEST SPOT" /> : ''}
+            {props.bestSpot && <BestSpot size="medium" label="BEST SPOT" />}
             <CardContent>
                 <div className="card-content-header">
                     <div>Available from</div>
