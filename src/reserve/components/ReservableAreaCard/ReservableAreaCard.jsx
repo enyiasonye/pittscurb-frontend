@@ -3,6 +3,11 @@ import { Card, Chip } from '@material-ui/core';
 import styled from 'styled-components';
 import colors from '../../../common/constants/colors';
 
+const CustomCard = styled(Card)`
+    padding: 0 !important;
+    position: relative !important;
+    overflow: visible !important;
+`
 const CardContent = styled.div`
     padding: 0;
     display: flex;
@@ -10,6 +15,7 @@ const CardContent = styled.div`
     flex-direction: column;
     height: 100%;
     font-family: Muli;
+    color: #636363;
 
     .card-content-header {
         flex: 1 0 auto;
@@ -41,42 +47,43 @@ const BestSpot = styled(Chip)`
     border-radius: 0.3rem !important;
     padding: 0rem 0.75rem !important;
     position: absolute;
-    right: 2.75rem;
-    top: 0.25rem;  
+    right: 0.75rem;
+    top: -0.9rem;  
+    z-index: 9999;
 `;
 
 // Use a ternary to make best spot show up based on props passed in
 export default (props) => {
-
+    console.log(props.bestSpot)
     return (
-        <>
-            <BestSpot color={colors.primary} size="large" label="BEST SPOT" />
-            <Card elevation={5} style={{ padding: 0 }}>
-                <CardContent>
-                    <div className="card-content-header">
-                        <div>Available from</div>
-                        <div className="availability-time">
-                            {props.timesAvailable.startTime}
-                            {' '}
+
+        <CustomCard elevation={5}>
+            {props.bestSpot ? <BestSpot size="medium" label="BEST SPOT" /> : ''}
+            <CardContent>
+                <div className="card-content-header">
+                    <div>Available from</div>
+                    <div className="availability-time">
+                        {props.timesAvailable.startTime}
+                        {' '}
                         -
                         {' '}
-                            {props.timesAvailable.endTime}
-                        </div>
+                        {props.timesAvailable.endTime}
                     </div>
-                    <div className="card-content-footer">
-                        <span>
-                            {props.maxDurationMinutes}
-                            {' '}
+                </div>
+                <div className="card-content-footer">
+                    <span>
+                        {props.maxDurationMinutes}
+                        {' '}
                         min. max
                     </span>
-                        <span>
-                            {props.spaces}
-                            {' '}
+                    <span>
+                        {props.spaces}
+                        {' '}
                         spots free
                     </span>
-                    </div>
-                </CardContent>
-            </Card>
-        </>
+                </div>
+            </CardContent>
+        </CustomCard>
+
     );
 };

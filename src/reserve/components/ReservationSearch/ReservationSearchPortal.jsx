@@ -92,6 +92,7 @@ export default () => {
                   spaces,
                   maxDurationMinutes,
                   areaId,
+                  bestSpot: Math.random() > 0.5
                 }} />
               </CarouselItem>
             ))}
