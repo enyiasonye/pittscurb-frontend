@@ -49,32 +49,32 @@ const BestSpot = styled(Chip)`
     position: absolute;
     right: 0.75rem;
     top: -0.9rem;  
-    z-index: 9999;
+    z-index: 2;
 `;
 
-export default (props) => {
+export default ({ bestSpot, timesAvailable, maxDurationMinutes, spaces }) => {
     return (
         <CustomCard elevation={5}>
-            {props.bestSpot && <BestSpot size="medium" label="BEST SPOT" />}
+            {bestSpot && <BestSpot size="medium" label="BEST SPOT" />}
             <CardContent>
                 <div className="card-content-header">
                     <div>Available from</div>
                     <div className="availability-time">
-                        {props.timesAvailable.startTime}
+                        {timesAvailable.startTime}
                         {' '}
                         -
                         {' '}
-                        {props.timesAvailable.endTime}
+                        {timesAvailable.endTime}
                     </div>
                 </div>
                 <div className="card-content-footer">
                     <span>
-                        {props.maxDurationMinutes}
+                        {maxDurationMinutes}
                         {' '}
                         min. max
                     </span>
                     <span>
-                        {props.spaces}
+                        {spaces}
                         {' '}
                         spots free
                     </span>
