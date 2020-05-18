@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '@material-ui/core';
+import { Card, Button } from '@material-ui/core';
 
 import {
   Map,
